@@ -12,3 +12,155 @@ One-to-Many (1:N)
 Many-to-One (N:1)
 Many-to-Many (M:N)
 -------------------------------------------------------------------------
+1. One-to-One (1:1)
+
+One record in Table A is related to only one record in Table B.
+Person
++-----------+
+| person_id |
+| name      |
++-----------+
+      |
+      | 1 : 1
+      |
+Passport
++--------------+
+| passport_id  |
+| person_id FK |
+| passport_no  |
++--------------+
+
+CREATE TABLE Person (
+    person_id INT PRIMARY KEY,
+    name VARCHAR(50)
+);
+
+CREATE TABLE Passport (
+    passport_id INT PRIMARY KEY,
+    passport_no VARCHAR(20),
+    person_id INT UNIQUE,
+    FOREIGN KEY (person_id) REFERENCES Person(person_id)
+);
+-----------------------------------------------------------------------------------------------------------
+
+2. One-to-Many (1:N)
+One record in the parent table can have many related records in the child table.
+
+Example
+One customer can place many orders.
+
+Customer
++-------------+
+| customer_id |
+| name        |
++-------------+
+      |
+      | 1 : N
+      |
+Orders
++------------+
+| order_id   |
+| customer_id|
+| product    |
++------------+
+
+CREATE TABLE Customer (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(50)
+);
+
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    product VARCHAR(50),
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+);
+---------------------------------------------------------------------------------------------------
+3. Many-to-One (N:1)
+Many records in one table relate to one record in another table.
+This is simply the reverse view of a one-to-many relationship.
+
+Example
+Many employees belong to one department.
+
+Employee
++---------+
+| emp_id  |
+| dept_id |
++---------+
+      |
+      | N : 1
+      |
+Department
++---------+
+| dept_id |
+| name    |
++---------+
+
+CREATE TABLE Customer (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(50)
+);
+
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    product VARCHAR(50),
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)
+);
+-----------------------------------------------------------------------------------------------------------
+4. Many-to-Many (M:N)
+Many records in one table can relate to many records in another table.
+This requires a junction (bridge) table.
+
+Example
+Students and Courses.
+A student can enroll in many courses, and a course can have many students.
+
+Student
++-----------+
+| student_id|
++-----------+
+      |
+      | M : N
+      |
+Student_Course
++-----------+-----------+
+| student_id| course_id |
++-----------+-----------+
+      |
+      |
+Course
++-----------+
+| course_id |
++-----------+
+
+CREATE TABLE Student (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(50)
+);
+
+CREATE TABLE Course (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(50)
+);
+
+CREATE TABLE Student_Course (
+    student_id INT,
+    course_id INT,
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES Student(student_id),
+    FOREIGN KEY (course_id) REFERENCES Course(course_id)
+);
+
+--------------------------------------------------------------------------
+
+
+Primary Key vs Foreign Key
+Primary Key	                                            Foreign Key
+Uniquely identifies each row	                  References a primary key in another table
+Cannot contain duplicate values	                Can contain duplicate values
+Cannot be NULL	                                Can be NULL (unless restricted)
+One per table	                                  Multiple foreign keys can exist in a table
+
+
