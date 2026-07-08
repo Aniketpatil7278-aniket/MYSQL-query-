@@ -13,3 +13,12 @@ CHECK - Ensures that the values in a column satisfies a specific condition
 DEFAULT - Sets a default value for a column if no value is specified
 
 CREATE INDEX - Creates indexes on columns to retrieve data from the database faster
+
+exmaple:-
+create table user(
+user_id int primary key auto_increment,
+username varchar(30) not null,
+email varchar(50) unique,
+age int check(age >=8),
+signup timestamp default current_timestamp
+);
