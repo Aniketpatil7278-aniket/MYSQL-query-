@@ -1,0 +1,14 @@
+created the database :-> create database student;
+-----------------------------------------------------
+use he database :-> use student;
+--------------------------------------------------
+created the table :-create table student(
+ID int ,
+name varchar(20),
+email varchar(20),
+dept varchar(20)
+);
+-------------------------------------------------------
+insert the data 
+insert into student value(02, 'avishakar', 'avi@gmail.com' , 'MBA');
+--------------------------------------------------------------------
