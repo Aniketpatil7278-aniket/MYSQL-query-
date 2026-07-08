@@ -1,0 +1,14 @@
+Why are Relationships Used?
+Reduce data redundancy (duplicate data)
+Maintain data integrity
+Connect related tables
+Make data retrieval easier using JOINs
+-----------------------------------------------------------------------------
+Types of Relationships in MySQL
+
+There are four main types:
+One-to-One (1:1)
+One-to-Many (1:N)
+Many-to-One (N:1)
+Many-to-Many (M:N)
+-------------------------------------------------------------------------
