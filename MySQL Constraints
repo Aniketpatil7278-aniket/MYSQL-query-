@@ -62,3 +62,88 @@ INSERT INTO Employee VALUES (5, 'Sneha', 'sneha@gmail.com', 38000, 'Female', 'Ba
 SELECT * FROM Department;
 
 SELECT * FROM Employee;
+
+-------------------------------------------
+ANU op 
+The ANY operator compares a value with the values returned by a subquery. The condition is true if it matches at least one value returned by the subquery.
+
+SELECT column_name
+FROM table_name
+WHERE column_name operator ANY (
+    SELECT column_name
+    FROM table_name
+);
+example 
+
+SELECT *
+FROM Employee
+WHERE salary < ANY (
+    SELECT salary
+    FROM Employee
+    WHERE dept_id = 102
+);
+
+
+select emp_name, city  from Employee
+where salary > any (select salary from Employee where dept_id= 101);
+
+
+---------------------------------------------------------------------------
+
+ALL
+
+The ALL operator in MySQL compares a value with all values returned by a subquery. The condition is true only 
+if it satisfies the comparison with every value in the subquery.
+
+SELECT column_name
+FROM table_name
+WHERE column_name operator ALL (
+    SELECT column_name
+    FROM table_name
+);
+
+Salary Greater Than All Employees in Department 101
+select * from Employee where salary > all (select salary from Employee where dept_id =101);
+
+Salary Less Than All Employees in Department 102
+SELECT *
+FROM Employee
+WHERE salary < ALL (
+    SELECT salary
+    FROM Employee
+    WHERE dept_id = 102
+);
+
+
+Difference Between ANY and ALL
+ANY                                                                     	ALL
+Condition must be true for at least one value	              Condition must be true for every value
+Similar to "any one"	                                      Similar to "all of them"
+
+----------------------------------------------------------------------------------
+What is the use of CASE in an UPDATE statement?
+
+Answer:
+CASE allows you to update different rows with different values in a single UPDATE statement based on multiple conditions, 
+making updates more efficient and reducing the need for multiple queries.
+
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE Employee
+SET salary = CASE
+    WHEN dept_id = 101 THEN salary + 1000
+    WHEN dept_id = 102 THEN salary + 1000
+    WHEN dept_id = 103 THEN salary + 1000
+    ELSE salary
+END;
+
+
+UPDATE Employee
+SET salary = CASE
+    WHEN dept_id = 101 THEN salary + 5000
+    WHEN dept_id = 102 THEN salary + 3000
+    WHEN dept_id = 103 THEN salary + 2000
+    ELSE salary
+END
+WHERE dept_id IN (101, 102, 103);
+
